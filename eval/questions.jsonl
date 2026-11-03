@@ -1,0 +1,4 @@
+{"id": 1, "type": "lookup", "question": "What is artificial intelligence?"}
+{"id": 2, "type": "lookup", "question": "What is machine learning?"}
+{"id": 3, "type": "multi_hop", "question": "How is machine learning related to artificial intelligence?"}
+{"id": 4, "type": "global", "question": "What are the main themes across the uploaded documents?"}
