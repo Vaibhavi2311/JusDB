@@ -1,6 +1,7 @@
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
-
+from pydantic import BaseModel
+from backend.app.llm import generate_answer
 from backend.app.ingestion import (
     extract_text_from_pdf,
     create_chunks
@@ -11,7 +12,8 @@ from backend.app.vector_store import (
     store_chunks,
     search_chunks
 )
-
+class ChatRequest(BaseModel):
+    question: str
     
 app = FastAPI(
     title="GraphRAG Enterprise Brain",
@@ -113,3 +115,65 @@ def search_documents(query: str):
         "query": query,
         "results": results
     }
+@app.post("/chat")
+def chat(request: ChatRequest):
+
+    question = request.question.strip()
+
+    if not question:
+        raise HTTPException(
+            status_code=400,
+            detail="Question cannot be empty"
+        )
+
+    try:
+        # Step 1: Convert question into embedding
+        query_embedding = generate_embedding(question)
+
+        # Step 2: Retrieve relevant chunks from Qdrant
+        results = search_chunks(
+            query_embedding,
+            limit=5
+        )
+
+        if not results:
+            return {
+                "question": question,
+                "answer": "No relevant documents found. Upload a PDF first.",
+                "sources": []
+            }
+
+        # Step 3: Prepare context for the LLM
+        context_parts = []
+
+        for index, result in enumerate(results, start=1):
+
+            context_parts.append(
+                f"""
+[Source {index}]
+Filename: {result['filename']}
+Page: {result['page_number']}
+Content: {result['text']}
+"""
+            )
+
+        context = "\n".join(context_parts)
+
+        # Step 4: Generate answer
+        answer = generate_answer(
+            question,
+            context
+        )
+
+        # Step 5: Return answer and references
+        return {
+            "question": question,
+            "answer": answer,
+            "sources": results
+        }
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Chat processing failed: {str(e)}"
+        )
