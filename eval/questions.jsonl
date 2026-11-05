@@ -1,4 +1,10 @@
-{"id": 1, "type": "lookup", "question": "What is artificial intelligence?"}
-{"id": 2, "type": "lookup", "question": "What is machine learning?"}
-{"id": 3, "type": "multi_hop", "question": "How is machine learning related to artificial intelligence?"}
-{"id": 4, "type": "global", "question": "What are the main themes across the uploaded documents?"}
+{"id":"Q01","type":"lookup","question":"What is the main topic of this document?","expected_answer":"Replace with the correct answer from your PDF."}
+{"id":"Q02","type":"lookup","question":"What problem does the document address?","expected_answer":"Replace with the correct answer from your PDF."}
+{"id":"Q03","type":"lookup","question":"Which technologies are mentioned in the document?","expected_answer":"Replace with the correct answer from your PDF."}
+{"id":"Q04","type":"lookup","question":"What is the purpose of the proposed system?","expected_answer":"Replace with the correct answer from your PDF."}
+{"id":"Q05","type":"lookup","question":"What are the main advantages described in the document?","expected_answer":"Replace with the correct answer from your PDF."}
+{"id":"Q06","type":"multi_hop","question":"How does the problem described in the document connect to the proposed solution?","expected_answer":"Replace with the correct answer from your PDF."}
+{"id":"Q07","type":"multi_hop","question":"How do the technologies mentioned work together in the proposed system?","expected_answer":"Replace with the correct answer from your PDF."}
+{"id":"Q08","type":"multi_hop","question":"What steps are involved in the process described in the document?","expected_answer":"Replace with the correct answer from your PDF."}
+{"id":"Q09","type":"global","question":"Summarize the most important ideas across this document.","expected_answer":"Replace with a short summary of your PDF."}
+{"id":"Q10","type":"global","question":"What are the major conclusions and future improvements discussed?","expected_answer":"Replace with the correct answer from your PDF."}
