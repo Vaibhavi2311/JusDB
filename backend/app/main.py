@@ -2,7 +2,16 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-
+from backend.app.graph_visualization import get_graph_visualization
+from fastapi.middleware.cors import CORSMiddleware
+from backend.app.graphrag_pipeline import ask_graphrag
+from pydantic import BaseModel, Field
+from backend.app.hybrid_retrieval import retrieve_hybrid_context
+from backend.app.graph_retrieval import (
+    search_graph_entity,
+    get_entity_relationships,
+    multi_hop_search
+)
 from pathlib import Path
 from uuid import uuid4
 
@@ -56,8 +65,12 @@ app = FastAPI(
 # ==========================================
 
 app.add_middleware(
+    
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -349,4 +362,122 @@ def get_document_status(job_id: str):
         raise HTTPException(
             status_code=500,
             detail=f"Could not retrieve task status: {str(e)}"
+        )
+class GraphSearchRequest(BaseModel):
+    entity_name: str
+    entity_type: str
+    max_hops: int = Field(default=2, ge=1, le=3)
+    
+    
+@app.get("/graph/entity")
+def graph_entity_search(
+    entity_name: str,
+    entity_type: str
+):
+    return {
+        "results": search_graph_entity(
+            entity_name,
+            entity_type
+        )
+    }
+
+
+@app.get("/graph/relationships")
+def graph_relationship_search(
+    entity_name: str,
+    entity_type: str
+):
+    return {
+        "results": get_entity_relationships(
+            entity_name,
+            entity_type
+        )
+    }
+
+
+@app.post("/graph/multi-hop")
+def graph_multi_hop(request: GraphSearchRequest):
+
+    return {
+        "entity": request.entity_name,
+        "max_hops": request.max_hops,
+        "results": multi_hop_search(
+            request.entity_name,
+            request.entity_type,
+            request.max_hops
+        )
+    }
+
+@app.get("/chat/retrieve")
+def hybrid_retrieval_endpoint(question: str):
+
+    if not question.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="Question cannot be empty"
+        )
+
+    result = retrieve_hybrid_context(
+        question=question,
+        vector_limit=10,
+        max_hops=2
+    )
+
+    return {
+        "question": result["question"],
+        "vector_results": result["vector_results"],
+        "graph_entities": result["graph_entities"],
+        "graph_paths": result["graph_paths"],
+        "combined_context": result["combined_context"]
+    }
+
+@app.get("/graphrag/ask")
+def graphrag_ask(question: str):
+
+    if not question.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="Question cannot be empty"
+        )
+
+    try:
+        result = ask_graphrag(question)
+
+        return result
+
+    except Exception as error:
+        raise HTTPException(
+            status_code=500,
+            detail=f"GraphRAG processing failed: {str(error)}"
+        )
+
+@app.get("/graph/visualization")
+def graph_visualization_endpoint(
+    entity_name: str,
+    entity_type: str,
+    limit: int = 100
+):
+    if not entity_name.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="Entity name cannot be empty"
+        )
+
+    if limit < 1 or limit > 200:
+        raise HTTPException(
+            status_code=400,
+            detail="Limit must be between 1 and 200"
+        )
+
+    try:
+        return get_graph_visualization(
+            entity_name=entity_name,
+            entity_type=entity_type,
+            limit=limit
+        )
+
+    except Exception:
+        raise HTTPException(
+            status_code=500,
+            detail="Unable to retrieve graph visualization"
         )

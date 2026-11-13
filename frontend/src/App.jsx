@@ -1,7 +1,8 @@
 
 import { useEffect, useState } from "react";
 import "./App.css";
-
+import GraphRAGChat from "./GraphRAGChat";
+import GraphVisualization from "./GraphVisualization";
 const API_URL = "http://127.0.0.1:8000";
 
 function App() {
@@ -571,7 +572,8 @@ function App() {
             </button>
 
           </div>
-
+           <GraphRAGChat />
+<GraphVisualization />
         </section>
 
       </main>

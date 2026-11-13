@@ -7,9 +7,10 @@ from backend.app.graph_store import (
     close_connection
 )
 sample_text = """
-Python is a popular programming language.
-Google uses Python for several internal tools.
-Alice works at Google as a software engineer.
+Google is a technology company.
+Google LLC develops several software products.
+Python is a programming language.
+Google uses Python for internal tools.
 """
 
 chunk_id = "test_chunk_001"

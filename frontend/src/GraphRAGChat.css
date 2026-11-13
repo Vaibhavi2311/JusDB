@@ -1,0 +1,210 @@
+
+.graphrag-container {
+  width: 100%;
+  max-width: 950px;
+  height: 720px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  background: #101820;
+  color: #f1f5f9;
+  border: 1px solid #263746;
+  border-radius: 14px;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.graphrag-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #17232e;
+  border-bottom: 1px solid #263746;
+}
+
+.graphrag-header h2 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.graphrag-header p {
+  color: #9aabba;
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
+.status-indicator {
+  background: #173e35;
+  color: #71e0b5;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.graphrag-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px;
+}
+
+.welcome-message {
+  text-align: center;
+  margin-top: 150px;
+  color: #cbd5e1;
+}
+
+.welcome-message p {
+  color: #91a0af;
+}
+
+.message {
+  max-width: 85%;
+  margin-bottom: 22px;
+  padding: 15px;
+  border-radius: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.message.user {
+  margin-left: auto;
+  background: #174a6e;
+}
+
+.message.assistant {
+  margin-right: auto;
+  background: #202e39;
+  border: 1px solid #344654;
+}
+
+.message-label {
+  font-size: 12px;
+  font-weight: bold;
+  color: #91c9ed;
+  margin-bottom: 8px;
+}
+
+.message-content {
+  white-space: pre-wrap;
+}
+
+.answer-details {
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 1px solid #40505e;
+}
+
+.support-status {
+  color: #a9c9b9;
+  font-size: 12px;
+}
+
+.source-section {
+  margin-top: 12px;
+}
+
+.source-section h4 {
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.source-tag {
+  display: inline-block;
+  margin: 3px;
+  padding: 5px 9px;
+  background: #263d4d;
+  border-radius: 6px;
+  color: #b9ddf2;
+  font-size: 12px;
+}
+
+.graph-details {
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.graph-details summary {
+  cursor: pointer;
+  color: #9ac9e8;
+}
+
+.graph-details pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: #111b23;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 11px;
+}
+
+.loading-message {
+  color: #9ac9e8;
+  padding: 12px;
+  font-size: 13px;
+}
+
+.error-message {
+  background: #542b2b;
+  color: #ffd5d5;
+  margin: 0 15px 10px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.graphrag-input-area {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  background: #17232e;
+  border-top: 1px solid #263746;
+}
+
+.graphrag-input-area input {
+  flex: 1;
+  min-width: 0;
+  padding: 14px;
+  background: #263746;
+  border: 1px solid #405465;
+  border-radius: 8px;
+  color: white;
+  outline: none;
+}
+
+.graphrag-input-area input:focus {
+  border-color: #4ba4d5;
+}
+
+.graphrag-input-area button {
+  padding: 12px 22px;
+  background: #1976aa;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.graphrag-input-area button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .graphrag-container {
+    height: 85vh;
+    margin: 10px auto;
+  }
+
+  .graphrag-header h2 {
+    font-size: 16px;
+  }
+
+  .message {
+    max-width: 95%;
+  }
+
+  .graphrag-input-area {
+    padding: 10px;
+  }
+}

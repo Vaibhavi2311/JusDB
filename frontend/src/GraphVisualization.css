@@ -1,0 +1,117 @@
+
+.graph-page {
+  width: 95%;
+  max-width: 1250px;
+  margin: 30px auto;
+  color: #edf4f8;
+  font-family: Arial, sans-serif;
+}
+
+.graph-heading {
+  margin-bottom: 22px;
+}
+
+.graph-heading h2 {
+  margin-bottom: 8px;
+}
+
+.graph-heading p {
+  color: #9bafbf;
+}
+
+.graph-search {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.graph-search input,
+.graph-search select {
+  padding: 12px;
+  background: #172733;
+  color: white;
+  border: 1px solid #3a5263;
+  border-radius: 7px;
+}
+
+.graph-search input {
+  flex: 1;
+  min-width: 100px;
+}
+
+.graph-search button {
+  padding: 12px 18px;
+  background: #1976aa;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.graph-search button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.graph-workspace {
+  display: grid;
+  grid-template-columns: 1fr 270px;
+  gap: 15px;
+}
+
+.cytoscape-container {
+  height: 520px;
+  min-width: 0;
+  background: #101b24;
+  border: 1px solid #354b5b;
+  border-radius: 12px;
+}
+
+.node-information {
+  padding: 18px;
+  background: #172733;
+  border: 1px solid #354b5b;
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}
+
+.node-information h3 {
+  margin-top: 0;
+}
+
+.node-information p {
+  color: #c5d4de;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.graph-error {
+  color: #ffaaaa;
+  background: #482a2a;
+  padding: 12px;
+  border-radius: 7px;
+}
+
+.graph-counts {
+  display: flex;
+  gap: 20px;
+  margin-top: 15px;
+  color: #a8c9dc;
+  font-size: 13px;
+}
+
+@media (max-width: 750px) {
+
+  .graph-search {
+    flex-direction: column;
+  }
+
+  .graph-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .cytoscape-container {
+    height: 420px;
+  }
+
+}
